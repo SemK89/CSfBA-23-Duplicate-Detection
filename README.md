@@ -7,4 +7,4 @@ The file 'core.py' supplies the main steps of the duplicate detection algorithm,
 
 The file 'functions.py' defines several functions that are used in the several core steps of the algorithm, but are of a more technical nature.
 
-Relevant plots for the results were made using Excel and its matplot add-in, though some simple plots can also be generated (after obtaining the results) using 'plots.py'.
+Once the results have been generated, 'plots.py' will generate relevant plots for comparing the scores across hyperparameters.
