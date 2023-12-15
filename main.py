@@ -90,7 +90,7 @@ for p in P:
                  'fraction of comparisons': tr_fc,
                  'pair quality': tr_pms[0], 'pair completeness': tr_pms[1], 'f1*': tr_pms[2],
                  'precision': tr_ams[0], 'recall': tr_ams[1], 'f1': tr_ams[2]})
-            print(f'{round(tr_ams[2], 4)} time: {int(iteration_time)}s')
+            print(f'{round(tr_ams[2], 4)}, time: {int(iteration_time)}s')
 
 results_full = pd.DataFrame(results_full)
 results_full.to_excel('results-full.xlsx', index=False, float_format="%.6f")
@@ -134,7 +134,7 @@ for r in range(n_bootstraps*10):  # More repetitions here to have more certainty
          'fraction of comparisons': te_fc,
          'pair quality': te_pms[0], 'pair completeness': te_pms[1], 'f1*': te_pms[2],
          'precision': te_ams[0], 'recall': te_ams[1], 'f1': te_ams[2]})
-    print(f'{round(te_ams[2], 4)} time: {int(iteration_time)}s')
+    print(f'{round(te_ams[2], 4)}, time: {int(iteration_time)}s')
 
 results_oos = pd.DataFrame(results_oos)
 results_oos.to_excel('results-oos.xlsx', index=False, float_format="%.6f")
