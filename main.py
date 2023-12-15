@@ -78,19 +78,24 @@ for p in P:
             tr_features, te_features = f.split_items(features, train_indices, test_indices)
 
             tr_cps, tr_aps, tr_fc, tr_pms = c.preselection(tr_ids, tr_titles, tr_shops, k_opt, n_hash, b_opt)
+            te_cps, te_aps, te_fc, te_pms = c.preselection(te_ids, te_titles, te_shops, k_opt, n_hash, b_opt)
+
             tr_labels, tr_data = c.candidate_datagen(tr_cps, tr_aps, p, q,
                                                      tr_titles, tr_brands, tr_scr_sizes, tr_refr_rates, tr_features)
+            te_labels, te_data = c.candidate_datagen(te_cps, te_aps, p, q,
+                                                     te_titles, te_brands, te_scr_sizes, te_refr_rates, te_features)
+
             model = c.train(tr_labels, tr_data)
-            tr_ams = c.test(model, tr_aps, tr_cps, tr_data)
+            te_ams = c.test(model, te_aps, te_cps, te_data)
 
             iteration_time = round((time.time() - start_time))
             results_full.append(
                 {'key-shingle': p, 'value-shingle': q,
                  'bootstrap': r + 1, 'execution time (sec)': iteration_time,
-                 'fraction of comparisons': tr_fc,
-                 'pair quality': tr_pms[0], 'pair completeness': tr_pms[1], 'f1*': tr_pms[2],
-                 'precision': tr_ams[0], 'recall': tr_ams[1], 'f1': tr_ams[2]})
-            print(f'{round(tr_ams[2], 4)}, time: {int(iteration_time)}s')
+                 'fraction of comparisons': te_fc,
+                 'pair quality': te_pms[0], 'pair completeness': te_pms[1], 'f1*': te_pms[2],
+                 'precision': te_ams[0], 'recall': te_ams[1], 'f1': te_ams[2]})
+            print(f'{round(te_ams[2], 4)}, time: {int(iteration_time)}s')
 
 results_full = pd.DataFrame(results_full)
 results_full.to_excel('results-full.xlsx', index=False, float_format="%.6f")
